@@ -1,6 +1,9 @@
-class LoginPage {
+import BasePage from './BasePage.js';
+import DashboardPage from './DashboardPage.js';
+
+class LoginPage extends BasePage {
     constructor(page){
-        this.page=page;
+        super(page);
 
         this.usernameTextbox=page.getByRole('textbox',{name:'Username'});
         this.passwordTextBox=page.getByRole('textbox',{name:'Password'});
@@ -23,7 +26,13 @@ class LoginPage {
     async login(username,password){
         await this.enterUsername(username);
         await this.enterPassword(password);
-        await this.clickLoginButton();
+
+        await Promise.all([
+            this.page.waitForURL(/dashboard/),
+            this.clickLoginButton()
+        ]);
+    
+        return new DashboardPage(this.page);
     }
 
 }
