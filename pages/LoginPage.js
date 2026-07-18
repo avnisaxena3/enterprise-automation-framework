@@ -23,17 +23,16 @@ class LoginPage extends BasePage {
     async clickLoginButton(){
         await this.loginButton.click();
     }
-    async login(username,password){
+    async login(username, password) {
         await this.enterUsername(username);
         await this.enterPassword(password);
-
         await Promise.all([
             this.page.waitForURL(/dashboard/),
             this.clickLoginButton()
         ]);
-    
-        return new DashboardPage(this.page);
-    }
-
+        const dashboardPage = new DashboardPage(this.page);
+        await dashboardPage.waitForPage();
+        return dashboardPage;
+}
 }
 export default LoginPage;

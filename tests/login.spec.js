@@ -1,5 +1,4 @@
 import{test,expect}from'../fixtures/baseFixtures.js';
-import LoginPage from'../pages/LoginPage.js';
 import loginData from'../test-data/loginData.js';
 
 test("valid login",async({loginPage})=>{
